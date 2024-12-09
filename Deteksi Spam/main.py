@@ -5,6 +5,9 @@ from sklearn.naive_bayes import GaussianNB
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from ascii_magic import AsciiArt
+from colorama import Fore
+
 
 with open("data/spam.json","r") as file:
 	data = json.load(file)
@@ -45,10 +48,19 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_
 model = LinearRegression()
 model.fit(X_train,y_train)
 hasil = model.predict(X_test)
-inputan = str(input("Masukan Kata = "))
+my_art = AsciiArt.from_image('util/py.png')
+my_art.to_terminal(columns=45)
+
+inputan = str(input("Masukan Kata / Pesan = "))
 sett = encod.transform([inputan])
 hasil2 = model.predict(sett)
-print(hasil2)
+print(hasil2[0])
+if hasil2[0] > 1.2:
+	print("Pesan Tersebut Bukan SPAM")
+else:
+	print("Pesan Tersebut SPAM")
+
+print(f"{Fore.YELLOW} ** 40% Program Ini Kemungkinan Masih Salah, Karena Dikitnya Data **")
 
 
 
